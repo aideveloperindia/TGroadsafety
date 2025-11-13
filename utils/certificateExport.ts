@@ -13,11 +13,14 @@ export async function exportCertificateToPdf(element: HTMLElement, fileName: str
   const jsPDFModule: JsPdfModule = await import("jspdf");
 
   const html2canvas = html2canvasModule.default ?? html2canvasModule;
-  const JsPDFConstructor: typeof JsPDFConstructorType =
-    (jsPDFModule.default as JsPDFConstructorType | undefined) ??
-    (jsPDFModule as { jsPDF?: JsPDFConstructorType }).jsPDF;
-
-  if (!JsPDFConstructor) {
+  
+  // Handle jsPDF module loading
+  let JsPDFConstructor: typeof JsPDFConstructorType;
+  if ('default' in jsPDFModule && jsPDFModule.default) {
+    JsPDFConstructor = jsPDFModule.default as typeof JsPDFConstructorType;
+  } else if ('jsPDF' in jsPDFModule && jsPDFModule.jsPDF) {
+    JsPDFConstructor = jsPDFModule.jsPDF as typeof JsPDFConstructorType;
+  } else {
     throw new Error("Failed to load jsPDF module");
   }
 
