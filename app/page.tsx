@@ -159,10 +159,6 @@ export default function Home() {
                     </div>
                   ))}
                 </div>
-                <div className="text-center text-white relative z-10">
-                  <p className="text-xs uppercase tracking-[0.35em] text-white/70">Live Dashboard</p>
-                  <p className="text-sm font-semibold text-white">Updated every hour</p>
-                </div>
               </div>
             </div>
           </div>
